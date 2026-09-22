@@ -1,0 +1,36 @@
+name: Deploy to EdgeOne Makers
+
+on:
+  push:
+    branches:
+      - chore/all-my-stuffs
+  workflow_dispatch:
+
+concurrency:
+  group: "edgeone-deploy"
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7.0.0
+
+      - name: Setup pnpm and install dependencies
+        uses: pnpm/setup@v2.0.2
+        with:
+          cache: true
+
+      - name: Build the app
+        run: |
+          pnpm build
+          cp dist/index.html dist/404.html
+
+      - name: Deploy to EdgeOne Makers
+        env:
+          EDGEONE_TOKEN: ${{ secrets.EDGEONE_API_TOKEN }}
+          EDGEONE_PROJECT: ${{ vars.EDGEONE_PROJECT_NAME || 'it-tools' }}
+        run: |
+          npx edgeone makers deploy ./dist -n "$EDGEONE_PROJECT" -t "$EDGEONE_TOKEN"
