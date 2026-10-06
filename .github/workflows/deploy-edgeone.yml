@@ -33,4 +33,4 @@ jobs:
           EDGEONE_TOKEN: ${{ secrets.EDGEONE_API_TOKEN }}
           EDGEONE_PROJECT: ${{ vars.EDGEONE_PROJECT_NAME || 'it-tools' }}
         run: |
-          npx edgeone makers deploy ./dist -n "$EDGEONE_PROJECT" -t "$EDGEONE_TOKEN"
+          pnpm dlx edgeone makers deploy ./dist -n "$EDGEONE_PROJECT" -t "$EDGEONE_TOKEN"
