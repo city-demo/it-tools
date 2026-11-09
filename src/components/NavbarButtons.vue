@@ -35,6 +35,7 @@ const localesLong: Record<string, string> = {
   uk: 'Українська',
   ko: '한국인',
   zh: '中文',
+  'zh-TW': '繁體中文',
   vi: 'Tiếng Việt',
   ar: 'عربي',
   hi: 'हिन्दी',
@@ -58,6 +59,23 @@ const languageOptions = computed(() =>
 
 function onLanguageSelect(key: string) {
   locale.value = key;
+}
+
+// Keep wheel gestures inside the menu even in engines without overscroll-behavior.
+function containLanguageMenuScroll(event: WheelEvent) {
+  if (event.ctrlKey) {
+    return;
+  }
+  const scroller = (event.currentTarget as HTMLElement).querySelector('.n-scrollbar-container');
+  if (!scroller) {
+    return;
+  }
+  if (
+    (event.deltaY < 0 && scroller.scrollTop <= 0) ||
+    (event.deltaY > 0 && scroller.scrollTop + scroller.clientHeight >= scroller.scrollHeight - 1)
+  ) {
+    event.preventDefault();
+  }
 }
 
 const themeOptions = computed(() => [
@@ -119,12 +137,32 @@ function closeMenuOnSmallScreen() {
     </c-button>
   </n-dropdown>
 
-  <n-dropdown :options="languageOptions" trigger="click" @select="onLanguageSelect">
+  <n-dropdown
+    class="language-dropdown"
+    :options="languageOptions"
+    trigger="click"
+    scrollable
+    @select="onLanguageSelect"
+    @wheel="containLanguageMenuScroll"
+  >
     <c-button circle variant="text" :aria-label="t('home.nav.language', 'Language')">
       <n-icon size="25" :component="IconLanguage" />
     </c-button>
   </n-dropdown>
 </template>
+
+<style lang="less">
+// The menu is teleported outside this component. Keep it within the viewport,
+// with room for its trigger whether the popover opens above or below it.
+.language-dropdown {
+  max-height: min(400px, calc(50vh - 24px));
+  max-height: min(400px, calc(50dvh - 24px));
+
+  .n-scrollbar-container {
+    overscroll-behavior-y: contain;
+  }
+}
+</style>
 
 <style lang="less" scoped>
 .n-button {

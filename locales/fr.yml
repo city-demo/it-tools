@@ -147,6 +147,7 @@ tools:
       label-jpeg: JPEG
       label-webp: WebP
   categories:
+    automation: Automatisme
     favorite-tools: Vos outils favoris
     crypto: Cryptographie
     converter: Convertisseur
@@ -177,6 +178,27 @@ tools:
     finance: Finance
     default: Défaut
     toml: TOML
+  current-loop-4-20ma-converter:
+    title: Convertisseur 4-20 mA
+    description: Convertir un courant 4-20 mA (ou 0-20 mA) en valeur physique et inversement, avec le diagnostic de boucle NAMUR NE 43.
+    texts:
+      signal-label: Courant
+  voltage-0-10v-converter:
+    title: Convertisseur 0-10 V
+    description: Convertir une tension 0-10 V, 2-10 V, 0-5 V, 1-5 V ou ±10 V en valeur physique et inversement.
+    texts:
+      signal-label: Tension
+  analog-scaling-calculator:
+    title: Mise à l'échelle analogique
+    description: Convertir une valeur brute d'entrée analogique d'automate (Siemens 0-27648, Schneider 0-10000, 12/15/16 bits...) en valeur physique et inversement.
+    texts:
+      signal-label: Valeur brute
+      preset-siemens-unipolar: Siemens S7 unipolaire (0 à 27648)
+      preset-siemens-bipolar: Siemens S7 bipolaire (-27648 à 27648)
+      preset-schneider: Schneider M340/M580 (0 à 10000)
+      preset-12-bits: 12 bits (0 à 4095)
+      preset-15-bits: 15 bits (0 à 32767)
+      preset-16-bits: 16 bits (0 à 65535)
   token-generator:
     title: Générateur de token
     description: Génère une chaîne aléatoire avec les caractères que vous voulez,
@@ -7720,6 +7742,9 @@ tools:
   yaml-prettify:
     title: Yaml Prettify and Format
     description: Prétifiez votre chaîne YAML dans un format amical et lisible par l'homme.
+    externalAccess: Cet outil peut télécharger un schéma JSON depuis
+      https://www.schemastore.org (ou le catalogue de schémas configuré) lors
+      d'une demande de validation. Aucune donnée n'est transmise à l'extérieur.
   yaml-to-json-converter:
     description: Convertissez simplement Yaml en JSON avec ce convertisseur en
       direct en ligne.
@@ -8225,6 +8250,7 @@ tools:
       placeholder-select-templates-e-g-node-python-vue: Sélectionnez des modèles (par exemple, node, python, vue)
       title-gitignore: .gitignore
       tag-generate: Générer
+      snapshot-used: Utilisation de l'instantané de modèle groupé de {0}.
     externalAccess: Cet outil télécharge le fichier .gitignore depuis
       https://github.com/github/gitignore via l'API GitHub.
   i-and-l-checker:
@@ -8476,6 +8502,10 @@ tools:
       tag-replication-client: CLIENT DE RÉPLICATION
       tag-replication-slave: ESCLAVE DE LA RÉPLICATION
       tag-generate-sql-instructions: Générer des instructions SQL
+      error-oracle-password-double-quote: Les mots de passe Oracle ne peuvent pas
+        contenir de guillemets doubles (").
+      error-oracle-account-double-quote: Les noms de comptes Oracle ne peuvent pas
+        contenir de guillemets doubles (").
   database-table-generator:
     title: Générateur de tables de base de données
     description: Générer une requête SQL CREATE TABLE pour les bases de données courantes
@@ -8508,6 +8538,7 @@ tools:
       placeholder-select-templates: Sélectionner des modèles
       title-preview: Aperçu
       tag-fetch-generate: Récupérer et générer
+      snapshot-used: Utilisation de l'instantané de modèle groupé de {0}.
     externalAccess: Cet outil télécharge le fichier .gitattributes depuis
       https://github.com/gitattributes/gitattributes via l'API GitHub.
   html-to-xhtml:
@@ -8655,6 +8686,9 @@ tools:
       download-results-csv: Télécharger les résultats au format CSV
       batch-lat-lng-converter: Convertisseur de latitude/longitude par lots
       single-lat-lng-converter: Convertisseur simple latitude/longitude
+    externalAccess: Cet outil charge les tuiles cartographiques depuis OpenStreetMap
+      ou le serveur de tuiles configuré ; les coordonnées affichées sont
+      envoyées sous forme de requêtes de tuiles.
   si-prefixes-converter:
     title: Convertisseur de préfixes SI
     description: Convertir entre préfixes métriques
@@ -10485,6 +10519,46 @@ tools:
       tag-300-hop-status-code: = 300 && hop.status_code
       tag-headers-body-preview: Aperçu des en-têtes et du corps
       tag-truncated: Tronqué
+  fraction-decimal-converter:
+    texts:
+      label-fraction-decimal: Fraction → Décimal
+      label-decimal-fraction: Décimal → Fraction
+      label-inches: Pouces
+      label-millimeters: "Millimètres :"
+      label-mode: "Mode:"
+      label-decimal-places: "Nombre de décimales :"
+      label-unit: "Unité:"
+      label-fraction-resolution: "Résolution fractionnaire :"
+      label-decimal-value: "Valeur décimale :"
+      label-fraction: "Fraction:"
+      placeholder-e-g-3-16-or-2-3-16: par exemple 3/16 ou 2 3/16
+      title-results: Résultats
+      label-decimal-inches: "Pouces décimaux :"
+      tag-const-mode-ref: mode constant = ref
+    title: Convertisseur fractionnaire décimal
+    description: Convertir des fractions en décimales et vice versa, y compris les
+      conversions entre les unités en pouces et en système métrique.
+    externalAccess: nul
+  sound-tester:
+    texts:
+      title-general: Général
+      title-channel-tests: Tests de la chaîne
+      title-bass-tests: Tests de basse
+      title-treble-tests: Tests de triple
+      title-custom-frequency: Fréquence personnalisée
+      label-frequency-hz: "Fréquence (Hz) :"
+      tag-440hz-la: 440 Hz / La
+      tag-sweep: Balayer
+      tag-white-noise: bruit blanc
+      tag-pink-noise: bruit rose
+      tag-stop: Arrêt
+      tag-left: Gauche
+      tag-right: Droite
+      tag-play-this-frequency: Jouez cette fréquence
+    title: Testeur de son
+    description: Testez vos haut-parleurs et votre casque en diffusant des sons de
+      test. Réglez le volume et vérifiez la clarté audio.
+    externalAccess: nul
 favoriteButton:
   add: Ajouter aux favoris
   remove: Retirer des favoris
@@ -10506,6 +10580,39 @@ textareaCopyable:
   download: Télécharger
 locale-selector:
   select-a-language: Sélectionnez une langue
+analogSignalConverter:
+  texts:
+    title-input: Entrée
+    title-parameters: Paramètres
+    title-output: Sortie
+    swap-direction: Inverser le sens
+    status-ok: Dans la plage
+    copy-output: Copier la valeur de sortie
+    title-reference-points: Points de référence
+    label-signal-type: Type de signal
+    preset-custom: Personnalisé
+    label-engineering-range: Plage physique min / max
+    label-engineering-unit: Unité physique
+    placeholder-unit: Unité
+    error-signal-range: Le min du signal doit être inférieur au max du signal.
+    error-engineering-range: Le min de la plage physique doit être inférieur au max.
+    label-engineering-value: Valeur physique
+    label-rounded-signal: Arrondi (entier)
+    status-below-range: Le signal est sous la plage.
+    status-above-range: Le signal est au-dessus de la plage.
+    status-below-live-zero: Le signal est sous le zéro décalé, vérifier une rupture de fil ou un capteur en défaut.
+    engineering-below-range: La valeur est sous la plage physique, le signal sera hors plage.
+    engineering-above-range: La valeur est au-dessus de la plage physique, le signal sera hors plage.
+    loop-status-failure-low: "Défaut bas (≤ 3,6 mA, NAMUR NE 43) : boucle coupée, transmetteur non alimenté ou en défaut."
+    loop-status-uncertain-low: "Entre 3,6 et 3,8 mA : zone indéterminée, défaut probable (NAMUR NE 43)."
+    loop-status-under-range: "Sous-échelle (3,8 à 4 mA) : mesure saturée en bas de plage."
+    loop-status-over-range: "Sur-échelle (20 à 20,5 mA) : mesure saturée en haut de plage."
+    loop-status-uncertain-high: "Entre 20,5 et 21 mA : zone indéterminée, défaut probable (NAMUR NE 43)."
+    loop-status-failure-high: "Défaut haut (≥ 21 mA, NAMUR NE 43) : transmetteur en défaut ou court-circuit."
+    label-formula: Formule
+    formula-value: valeur
+    formula-signal: signal
+    column-percent: Plage
 collapsibleToolMenu:
   text:
     expanding: Réduire...
